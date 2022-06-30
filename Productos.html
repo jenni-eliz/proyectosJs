@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario de Productos</title>
+    <link href="styleInvProductos.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="contenedorSecciones">
+        <div id="seccionBotones">
+            <button class="botones" id="botonRegistroProductos">REGISTRO DE PRODUCTOS</button>
+            <button class="botones" id="botonIngresoVentas">INGRESO VENTAS </button>
+            <button class="botones" id="botonProductosRegistrados">PRODUCTOS REGISTRADOS</button>
+        </div>
+
+        <div id="seccionRegistroProductos">
+            <div class="titulo"> REGISTRO DE PRODUCTOS </div>
+            <div id="subContenedorRegistro">
+                <label> Nombre:</label><br>
+                <input type="text" id="nombreProducto"><br>
+                <label> Descripción: </label><br>
+                <textarea id="textDescripcion"> </textarea><br>
+                <label> Código de barras: </label><br>
+                <input id="codigoBarra" type="text"><br>
+                <label> Precio: </label><br>
+                <input id="precioProducto" type="number">
+            <div id="seccionBotonesRegistroProductos">
+                <button class="botones" id="botonAgregarProductos">AGREGAR PRODUCTOS</button>
+            </div>
+            </div>
+        </div>
+
+        <div id="seccionIngresoVentas">
+            <div class="titulo">INGRESO DE VENTAS </div>
+            <div id="subContenedorIngreso">
+                <div>
+                    <label> Seleccione el producto: </label><br>
+                    <select name="productosSelect" id="listaSelect">
+                    </select><br>
+                </div>
+                <div>
+                    <label> Cantidad: </label><br>
+                    <input type="number" id="cantidadVenta"><br>
+                </div>
+                <div id="botonesVentas">
+                    <button class="botones" id="botonAgregar">AGREGAR</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="seccionProductosRegistrados">
+            <div class="titulo">PRODUCTOS REGISTRADOS </div>
+            <div id="subContenedorProductosRegistrados">
+                <div>
+                    <label> Cantidad de productos registrados: </label><br>
+                    <div id="cantidadProductosRegistrados"></div><br>
+                    <label> Total de productos vendidos: </label><br>
+                    <div id="totalProductosVendidos"></div> <br>
+                    <label> Ingresos: </label><br>
+                    <div id="totalIngresos"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        'use strict';
+
+        function obtenerId (idElemento){
+            return document.getElementById(idElemento);
+        }
+
+        function obtenerElementosPorNombre (tagName) {
+            return document.getElementsByName(tagName);
+        }
+
+        function crearElemento (tagName){
+            return document.createElement(tagName);
+        }
+
+        function mostrarSeccionRegistroProductos() {
+            let registroProductos = obtenerId('seccionRegistroProductos');
+            let ingresoVentas = obtenerId('seccionIngresoVentas');
+            let productosRegistrados = obtenerId('seccionProductosRegistrados');
+
+            registroProductos.style.display = "block"
+            ingresoVentas.style.display = "none"
+            productosRegistrados.style.display = "none"
+        }
+
+        function mostrarSeccionIngresoVentas() {
+            let registroProductos = obtenerId('seccionRegistroProductos');
+            let ingresoVentas = obtenerId('seccionIngresoVentas');
+            let productosRegistrados = obtenerId('seccionProductosRegistrados');
+
+            registroProductos.style.display = "none"
+            ingresoVentas.style.display = "block"
+            productosRegistrados.style.display = "none"
+        }
+
+        function  mostrarSeccionProductosRegistrados() {
+            let registroProductos = obtenerId('seccionRegistroProductos');
+            let ingresoVentas = obtenerId('seccionIngresoVentas');
+            let productosRegistrados = obtenerId('seccionProductosRegistrados');
+
+            registroProductos.style.display = "none"
+            ingresoVentas.style.display = "none"
+            productosRegistrados.style.display = "block"
+        }
+
+        function vaciarSelect() {
+            let listaX = obtenerElementosPorNombre('productosSelect');
+            listaX[0].innerText= " ";
+        }
+
+        let datosProducto = [];
+        datosProducto.push({
+
+            producto: 'Licuadora',
+            descripcion: 'Potencia: 550 Watts.\n' +
+                'Licuadora con 10 velocidades + función de pulso.\n' +
+                'Jarra de vidrio de 1.25 Lt con tapa de doble abertura.\n' +
+                '4 Cuchillas de acero inoxidable son 2 veces más duraderas.\n' +
+                'Dispositivo de bisagra para añadir ingredientes.',
+            codigo: '258963',
+            precio: '399',
+        });
+
+        datosProducto.push({
+
+            producto: 'Microondas',
+            descripcion: 'Diseño moderno y minimalista.\n' +
+                'Color negro.\n' +
+                '25 funciones preprogramadas + funciones especializadas (mantener caliente y limpieza automática).\n' +
+                'Jaladera oculta.\n' +
+                'Control Electrónico touch.\n' +
+                '7 niveles de potencia, con opción: Cocción Automática que brindaran la cocción ideal a cada platillo.',
+            codigo: '258964',
+            precio: '1309',
+        });
+
+        datosProducto.push({
+
+            producto: 'Freidora De Aire Caliente',
+            descripcion: 'Freidora sin aceite.\n' +
+                'OLED touch control.\n' +
+                'Vinculación con la aplicación Mi Home.\n' +
+                'capacidad de 3,5 l.\n' +
+                'Calefacción de circulación de aire caliente de 360°.\n' +
+                'Conectividad Wi-Fi.',
+            codigo: '258965',
+            precio: '899',
+        });
+
+        function obtenerDatosYMeterAlArreglo() {
+
+            let datosNombreProducto = obtenerId('nombreProducto');
+            let datosDescripcion = obtenerId('textDescripcion');
+            let datoCodigo = obtenerId('codigoBarra');
+            let datoPrecio = obtenerId('precioProducto');
+
+            let producto = datosNombreProducto.value;
+            let descripcion = datosDescripcion.value;
+            let codigo = datoCodigo.value;
+            let precio = datoPrecio.value;
+
+            datosProducto.push({
+                producto: producto,
+                descripcion: descripcion,
+                codigo: codigo,
+                precio: precio,
+            });
+        }
+
+        let botonRegistroProductos = obtenerId('botonRegistroProductos');
+        botonRegistroProductos.onclick = () => {
+            mostrarSeccionRegistroProductos();
+        }
+
+        mostrarSeccionRegistroProductos();
+
+        let botonAgregarProductos = obtenerId('botonAgregarProductos');
+        botonAgregarProductos.onclick = () => {
+            mostrarSeccionRegistroProductos();
+            obtenerDatosYMeterAlArreglo();
+            vaciarSelect();
+            let x = obtenerElementosPorNombre('productosSelect');
+            console.log(x[0]);
+
+            for (let i = 0; i < datosProducto.length; i++ ){
+                let optionProducto = crearElemento('option');
+                optionProducto.value = datosProducto[i].codigo;
+                optionProducto.innerHTML = datosProducto[i].producto;
+
+                x[0].appendChild(optionProducto);
+                console.log(x);
+            }
+            console.log(datosProducto);
+        }
+
+        let botonIngresoVentas = obtenerId('botonIngresoVentas');
+        let datoCantidadVentas = obtenerId('cantidadProductos');
+        let cantidadVentasPorProducto = []
+
+
+        let botonAgregarCantidadProducto = obtenerId('botonAgregar');
+        let listaX = obtenerId('listaSelect');
+        let cantidadVenta = obtenerId('cantidadVenta');
+        let cantidad;
+        let contadorCantidad;
+        let productoVendido;
+        let datosRegistrados = [];
+        botonIngresoVentas.onclick = () => {
+            mostrarSeccionIngresoVentas();
+
+
+            botonAgregarCantidadProducto.onclick = () => {
+
+                for (let a = 0; a < datosProducto.length; a++ ) {
+                        cantidad = cantidadVenta.value;
+                        productoVendido = listaX.value;
+                }
+                datosRegistrados.push({
+                    cantidadVendida: cantidad,
+                    productoVendido: productoVendido
+                });
+                console.log(datosRegistrados);
+
+            }
+        }
+
+        let botonProductosRegistrados = obtenerId('botonProductosRegistrados');
+        let cantidadProductos = obtenerId('cantidadProductosRegistrados');
+        let totalProductosVendidos = obtenerId('totalProductosVendidos');
+        let registros = [
+            datosProducto,
+            datosRegistrados,
+        ];
+
+        botonProductosRegistrados.onclick = () => {
+            mostrarSeccionProductosRegistrados();
+            cantidadProductos.innerText = datosProducto.length;
+
+            let contador= 0;
+            let acumulador= 0;
+
+            for (let j=0; j < datosRegistrados.length; j++) {
+                let datos = datosRegistrados[j];
+                contador= datos.cantidadVendida;
+                contador = parseInt(contador);
+                acumulador = acumulador + contador;
+                contador = 0;
+                console.log(contador);
+                console.log(acumulador);
+                debugger;
+            }
+            console.log(contador);
+            console.log(acumulador);
+
+            totalProductosVendidos.innerText= acumulador;
+
+            let contadorIngreso =0;
+            let acumuladorIngreso = 0;
+
+
+            /*for (let k = 0; k < datosRegistrados.length; k++) {
+                let arreglos = registros [k];
+                let codigos = registros[k].datosProducto.codigo;
+                if (let num === codigos);{
+
+                }
+                contadorIngreso =
+            }*/
+        }
+
+
+
+    </script>
+
+</body>
+</html>

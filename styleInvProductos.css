@@ -1,0 +1,118 @@
+#seccionRegistroProductos {
+    width: 900px;
+    height: 500px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+#contenedorSecciones {
+    background-color: whitesmoke;
+}
+
+#seccionIngresoVentas {
+    background-color: whitesmoke;
+    width: 900px;
+    height: 500px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+#seccionProductosRegistrados {
+    background-color: whitesmoke;
+    width: 900px;
+    height: 500px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+#seccionProductosRegistrados > div:nth-child(2) {
+    padding-left: 20%;
+    padding-top: 15px;
+}
+
+
+#subContenedorRegistro > label {
+    font-weight: bold;
+}
+
+#subContenedorRegistro > input {
+    border: none;
+    background-color: lightgray;
+    border-radius: 4px;
+    width: 500px;
+    margin-bottom: 15px;
+}
+
+#subContenedorRegistro > textarea {
+    border: none;
+    background-color: lightgray;
+    border-radius: 4px;
+    width: 500px;
+    height: 45px;
+    margin-bottom: 15px;
+}
+
+#subContenedorRegistro {
+    padding-left: 25%;
+}
+.boton{
+    background-color: cornflowerblue;
+    font-family: 'Work Sans', sans-serif;
+    border-color: cornflowerblue;
+    border-radius: 5px;
+}
+
+
+.botones{
+    background-color: cornflowerblue;
+    font-family: 'Work Sans', sans-serif;
+    border-color: cornflowerblue;
+    border-radius: 5px;
+}
+
+#seccionBotones {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 25px;
+    padding: 15px;
+}
+
+#seccionBotonesIngresoVentas {
+    display: flex;
+    justify-content: left;
+    margin-bottom: 25px;
+    padding: 15px;
+}
+
+
+.titulo {
+    font-size: 22px;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 25px;
+    display: flex;
+    padding-top: 25px;
+}
+
+
+
+#calculosIngresoVentas {
+    display: flex;
+    justify-content: right;
+    padding-right: 35px;
+    padding-top: 45px;
+}
+
+#subContenedorIngreso {
+    padding-left: 35px;
+}
+
+#botonesVentas{
+    padding-top: 15px;
+}
+
+#subContenedorIngreso > div {
+    padding-left: 25%;
+
+}
+
+#subContenedorProductosRegistrados > div > div {
+    padding-left: 45%;
+}
