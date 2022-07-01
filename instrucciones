@@ -1,0 +1,14 @@
+- Registrar productos
+	- Nombre input texto
+	- Descripción  textarea
+	- Código de barra input tipo number
+	- Precio: input tipo number
+
+- Seccion: Ingresar venta 
+	- Con un select puedo elegir un producto (dropdown)
+	- Input de cantidad 
+
+* Esta seccion es para registrar las ventas por cada producto
+
+
+

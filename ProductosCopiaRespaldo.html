@@ -83,19 +83,6 @@
             return document.createElement(tagName);
         }
 
-        function obtenerPrecioProducto (idProducto){
-
-            for (let k = 0; k < datosProducto.length; k++){
-                let precio = datosProducto[k].precio;
-                let idCodigo = datosProducto[k].codigo;
-                if (idProducto === idCodigo){
-                    return parseFloat(precio);
-                }
-            }
-
-            return 1;
-        }
-
         function mostrarSeccionRegistroProductos() {
             let registroProductos = obtenerId('seccionRegistroProductos');
             let ingresoVentas = obtenerId('seccionIngresoVentas');
@@ -217,15 +204,17 @@
         }
 
         let botonIngresoVentas = obtenerId('botonIngresoVentas');
-
+        let datoCantidadVentas = obtenerId('cantidadProductos');
+        let cantidadVentasPorProducto = []
 
 
         let botonAgregarCantidadProducto = obtenerId('botonAgregar');
         let listaX = obtenerId('listaSelect');
         let cantidadVenta = obtenerId('cantidadVenta');
         let cantidad;
+        let contadorCantidad;
         let productoVendido;
-        let ventasRegistradas = [];
+        let datosRegistrados = [];
         botonIngresoVentas.onclick = () => {
             mostrarSeccionIngresoVentas();
 
@@ -236,11 +225,11 @@
                         cantidad = cantidadVenta.value;
                         productoVendido = listaX.value;
                 }
-                ventasRegistradas.push({
+                datosRegistrados.push({
                     cantidadVendida: cantidad,
                     productoVendido: productoVendido
                 });
-                console.log(ventasRegistradas);
+                console.log(datosRegistrados);
 
             }
         }
@@ -248,46 +237,33 @@
         let botonProductosRegistrados = obtenerId('botonProductosRegistrados');
         let cantidadProductos = obtenerId('cantidadProductosRegistrados');
         let totalProductosVendidos = obtenerId('totalProductosVendidos');
-        let totalIngresos = obtenerId('totalIngresos');
+
 
         botonProductosRegistrados.onclick = () => {
             mostrarSeccionProductosRegistrados();
             cantidadProductos.innerText = datosProducto.length;
 
-
+            let contador= 0;
             let acumulador= 0;
 
-            for (let j=0; j < ventasRegistradas.length; j++) {
-                let contador= 0;
-                let datos = ventasRegistradas[j];
+            for (let j=0; j < datosRegistrados.length; j++) {
+                let datos = datosRegistrados[j];
                 contador= datos.cantidadVendida;
                 contador = parseInt(contador);
                 acumulador = acumulador + contador;
                 contador = 0;
                 console.log(contador);
                 console.log(acumulador);
-
+                debugger;
             }
+            console.log(contador);
             console.log(acumulador);
 
+
             totalProductosVendidos.innerText= acumulador;
-
-            let ventasTotal =0;
-
-            for (let j=0; j < ventasRegistradas.length; j++) {
-                let datos = ventasRegistradas[j];
-                let cantidad = parseInt(datos.cantidadVendida);
-                let precioProducto = obtenerPrecioProducto(datos.productoVendido);
-                let totalVentaIteracion = cantidad * precioProducto;
-                ventasTotal = ventasTotal + totalVentaIteracion;
-                cantidad = 0;
-                console.log(ventasTotal);
-
-            }
-            console.log ('VentasTotal:');
-            console.log(ventasTotal);
-            totalIngresos.innerText = ventasTotal;
         }
+
+
 
     </script>
 
