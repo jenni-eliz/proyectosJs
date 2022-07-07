@@ -261,9 +261,9 @@
         let totalIngresos = obtenerId('totalIngresos');
         let elProductoMasCaro = obtenerId('mostrarProductoMasCaro');
         let elProductoMasVendido = obtenerId('mostrarProductoMasVendido');
-        let mostrarMayorVenta = obtenerId('mostrarMayorVenta');
+        let laMayorVenta = obtenerId('mostrarMayorVenta');
         let elProductoMenosCaro = obtenerId('mostrarProductoMenosCaro');
-        let mostrarProductoMenosVendido = obtenerId('mostrarProductoMenosVendido');
+        let elProductoMenosVendido = obtenerId('mostrarProductoMenosVendido');
 
         botonProductosRegistrados.onclick = () => {
             mostrarSeccionProductosRegistrados();
@@ -313,7 +313,6 @@
                     contadorProductos = precio;
                     productoMasCaro = producto;
                     console.log(productoMasCaro);
-                    debugger;
                 }
             }
             elProductoMasCaro.innerText = productoMasCaro;
@@ -327,7 +326,6 @@
                     contadorProductos = precio;
                     productoMenosCaro = producto;
                     console.log(productoMenosCaro);
-                    debugger;
                 }
             }
             elProductoMenosCaro.innerText = productoMenosCaro;
@@ -349,7 +347,6 @@
                         productoMasVendido = producto;
                     }
                     console.log(productoMasVendido);
-                    debugger;
                 }
             }
             elProductoMasVendido.innerText= productoMasVendido;
@@ -363,10 +360,20 @@
                     contadorVentas = ventas;
                     productoMenosVendido = producto;
                     console.log(productoMenosVendido);
-                    debugger;
                 }
             }
-            mostrarProductoMenosVendido.innerText= productoMenosVendido;
+            elProductoMenosVendido.innerText= productoMenosVendido;
+
+            let mayorVenta;
+            for (let j = 0; j < ventasRegistradas.length; j++){
+                let datos = ventasRegistradas[j];
+                let ventas = parseInt(datos.cantidadVendida);
+                if (contadorVentas < ventas){
+                    contadorVentas = ventas;
+                    mayorVenta = contadorVentas;
+                }
+            }
+            laMayorVenta.innerText = mayorVenta;
 
 
         }
