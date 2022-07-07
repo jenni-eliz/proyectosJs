@@ -62,6 +62,16 @@
                     <div id="totalProductosVendidos"></div> <br>
                     <label> Ingresos: </label><br>
                     <div id="totalIngresos"></div>
+                    <label> El producto más caro es: </label><br>
+                    <div id="mostrarProductoMasCaro"></div>
+                    <label> El producto más vendido es: </label><br>
+                    <div id="mostrarProductoMasVendido"></div>
+                    <label> La venta con más productos vendidos: </label><br>
+                    <div id="mostrarMayorVenta"></div>
+                    <label> El producto de menor precio: </label><br>
+                    <div id="mostrarProductoMenosCaro"></div>
+                    <label> El producto menos vendido: </label><br>
+                    <div id="mostrarProductoMenosVendido"></div>
                 </div>
             </div>
         </div>
@@ -81,6 +91,19 @@
 
         function crearElemento (tagName){
             return document.createElement(tagName);
+        }
+
+        function obtenerPrecioProducto (idProducto){
+
+            for (let k = 0; k < datosProducto.length; k++){
+                let precio = datosProducto[k].precio;
+                let idCodigo = datosProducto[k].codigo;
+                if (idProducto === idCodigo){
+                    return parseFloat(precio);
+                }
+            }
+
+            return 1;
         }
 
         function mostrarSeccionRegistroProductos() {
@@ -204,17 +227,15 @@
         }
 
         let botonIngresoVentas = obtenerId('botonIngresoVentas');
-        let datoCantidadVentas = obtenerId('cantidadProductos');
-        let cantidadVentasPorProducto = []
+
 
 
         let botonAgregarCantidadProducto = obtenerId('botonAgregar');
         let listaX = obtenerId('listaSelect');
         let cantidadVenta = obtenerId('cantidadVenta');
         let cantidad;
-        let contadorCantidad;
         let productoVendido;
-        let datosRegistrados = [];
+        let ventasRegistradas = [];
         botonIngresoVentas.onclick = () => {
             mostrarSeccionIngresoVentas();
 
@@ -225,11 +246,11 @@
                         cantidad = cantidadVenta.value;
                         productoVendido = listaX.value;
                 }
-                datosRegistrados.push({
+                ventasRegistradas.push({
                     cantidadVendida: cantidad,
                     productoVendido: productoVendido
                 });
-                console.log(datosRegistrados);
+                console.log(ventasRegistradas);
 
             }
         }
@@ -237,31 +258,104 @@
         let botonProductosRegistrados = obtenerId('botonProductosRegistrados');
         let cantidadProductos = obtenerId('cantidadProductosRegistrados');
         let totalProductosVendidos = obtenerId('totalProductosVendidos');
-
+        let totalIngresos = obtenerId('totalIngresos');
+        let elProductoMasCaro = obtenerId('mostrarProductoMasCaro');
+        let mostrarProductoMasVendido = obtenerId('mostrarProductoMasVendido');
+        let mostrarMayorVenta = obtenerId('mostrarMayorVenta');
+        let elProductoMenosCaro = obtenerId('mostrarProductoMenosCaro');
+        let mostrarProductoMenosVendido = obtenerId('mostrarProductoMenosVendido');
 
         botonProductosRegistrados.onclick = () => {
             mostrarSeccionProductosRegistrados();
             cantidadProductos.innerText = datosProducto.length;
 
-            let contador= 0;
-            let acumulador= 0;
 
-            for (let j=0; j < datosRegistrados.length; j++) {
-                let datos = datosRegistrados[j];
-                contador= datos.cantidadVendida;
+            let acumulador = 0;
+
+            for (let j = 0; j < ventasRegistradas.length; j++) {
+                let contador = 0;
+                let datos = ventasRegistradas[j];
+                contador = datos.cantidadVendida;
                 contador = parseInt(contador);
                 acumulador = acumulador + contador;
                 contador = 0;
                 console.log(contador);
                 console.log(acumulador);
-                debugger;
+
             }
-            console.log(contador);
             console.log(acumulador);
 
+            totalProductosVendidos.innerText = acumulador;
 
-            totalProductosVendidos.innerText= acumulador;
+            let ventasTotal = 0;
+
+            for (let j = 0; j < ventasRegistradas.length; j++) {
+                let datos = ventasRegistradas[j];
+                let cantidad = parseInt(datos.cantidadVendida);
+                let precioProducto = obtenerPrecioProducto(datos.productoVendido);
+                let totalVentaIteracion = cantidad * precioProducto;
+                ventasTotal = ventasTotal + totalVentaIteracion;
+                cantidad = 0;
+                console.log(ventasTotal);
+
+            }
+            console.log('VentasTotal:');
+            console.log(ventasTotal);
+            totalIngresos.innerText = ventasTotal;
+
+            let productoMasCaro = 0;
+            let producto;
+            for (let j = 0; j < datosProducto.length; j++) {
+                let datos = datosProducto[j];
+                let precio = parseFloat(datos.precio);
+                producto = datos.producto;
+                if (productoMasCaro < precio) {
+                    productoMasCaro = precio;
+                    console.log(productoMasCaro);
+                }
+            }
+            elProductoMasCaro.innerText = productoMasCaro;
+
+            let productoMenorPrecio = 0;
+            let productoMenosCaro;
+            for (let j = 0; j < datosProducto.length; j++) {
+                let datos = datosProducto[j];
+                let precio = parseFloat(datos.precio);
+                productoMenosCaro = datos.producto;
+                if (productoMenorPrecio > precio) {
+                    productoMenorPrecio = precio;
+                }
+            }
+            elProductoMenosCaro.innerText = productoMenosCaro;
+
+            let cantidadVentas = 0;
+            let productoMasVendido;
+            for (let j = 0; j < ventasRegistradas.length; j++) {
+                let datosVentas = ventasRegistradas[j];
+                let cantidadVendida = parseInt(datosVentas.cantidadVendida);
+                if (cantidadVentas < cantidadVendida) {
+                    cantidadVentas = cantidadVendida;
+                    console.log(cantidadVentas);
+                }
+            }
+            mostrarProductoMasVendido.innerText= cantidadVentas;
+
+            let cantidadMenorVenta = 0;
+            let productoMenosVendido;
+            for (let j = 0; j < ventasRegistradas.length; j++) {
+                let datosVentas = ventasRegistradas[j];
+                let cantidadVendida = parseInt(datosVentas.cantidadVendida);
+                if (cantidadVentas > cantidadVendida) {
+                    cantidadVentas = cantidadVendida;
+                    console.log(cantidadVentas);
+                }
+            }
+            mostrarProductoMenosVendido.innerText= cantidadVentas;
+
+
         }
+
+
 
 
 
